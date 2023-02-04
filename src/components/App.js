@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -9,6 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
+import ProtectedRoute from './ProtectedRoute';
 
 function App () {
 
@@ -22,6 +24,8 @@ function App () {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     api
@@ -138,15 +142,36 @@ function App () {
         <div className='page__container'>
           <Header/>
 
-          <Main 
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick} 
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleDeleteCardClick}
-          />
+          <Switch>
+            <ProtectedRoute
+              exact path='/'
+              loggedIn={loggedIn}
+              component={Main}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick} 
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeleteCardClick}
+            />
+
+            <Route 
+              path='/sign-up'
+            >
+            </Route>
+
+            <Route 
+              path='/sign-in'
+            >
+            </Route>
+
+            <Route>
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+            </Route>
+
+            
+          </Switch>
 
           <Footer/>
 
