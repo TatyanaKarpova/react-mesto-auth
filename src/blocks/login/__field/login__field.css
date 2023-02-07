@@ -1,0 +1,16 @@
+.login__field {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    width: 358px;
+    padding: 0 0 13px;
+    margin: 30px 0 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.login__field::placeholder {
+    color: #CCCCCC;
+}

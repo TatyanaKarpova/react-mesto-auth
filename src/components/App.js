@@ -11,6 +11,9 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeleteCardPopup from './ConfirmDeleteCardPopup';
 import ProtectedRoute from './ProtectedRoute';
+import Login from './Login';
+import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 
 function App () {
 
@@ -19,6 +22,10 @@ function App () {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isShowFullImagePopupOpen, setIsShowFullImagePopupOpen] = useState(false);
   const [isConfirmDeleteCardPopupOpen, setIsConfirmDeleteCardPopup] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+
   const [isRenderLoading, setIsRenderLoading] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({});
@@ -110,6 +117,7 @@ function App () {
     setIsShowFullImagePopupOpen(false);
     setIsConfirmDeleteCardPopup(false);
     setIsRenderLoading(false);
+    setIsInfoTooltipPopupOpen(false);
   };
 
   function handleCardLike (card) {
@@ -159,11 +167,13 @@ function App () {
             <Route 
               path='/sign-up'
             >
+              <Register />
             </Route>
 
             <Route 
               path='/sign-in'
             >
+              <Login />
             </Route>
 
             <Route>
@@ -208,6 +218,12 @@ function App () {
             card={selectedCard}
             onDeleteCard={handleCardDelete}
             isRenderLoading={isRenderLoading}
+          />
+
+          <InfoTooltip
+            isOpen={isInfoTooltipPopupOpen}
+            onClose={closeAllPopups}
+            regStatus={isLoginSuccess}
           />
           
         </div>

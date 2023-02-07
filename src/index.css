@@ -11,6 +11,7 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__login/header__login.css);
 
 @import url(./blocks/content/content.css);
 @import url(./blocks/content/__section/content__section.css);
@@ -55,6 +56,7 @@
 @import url(./blocks/popup/__form/_delete-card/popup__form_delete-card.css);
 @import url(./blocks/popup/__heading/popup__heading.css);
 @import url(./blocks/popup/__heading/_confirm/popup__heading_confirm.css);
+@import url(./blocks/popup/__heading/_reg/popup__heading_reg.css);
 @import url(./blocks/popup/__button/_confirm/popup__button_confirm.css);
 @import url(./blocks/popup/__item/popup__item.css);
 @import url(./blocks/popup/__item/_input/popup__item_input_name.css);
@@ -63,6 +65,9 @@
 @import url(./blocks/popup/__item/_input/popup__item_input_card-photo-url.css);
 @import url(./blocks/popup/__item/_input/popup__item_input-avatar-link.css);
 @import url(./blocks/popup/__item/_type/popup__item_type_error.css);
+@import url(./blocks/popup/__registration/popup__registration.css);
+@import url(./blocks/popup/__registration/_fail/popup__registration_fail.css);
+@import url(./blocks/popup/__registration/_success/popup__registration_success.css);
 @import url(./blocks/popup/__button/popup__button.css);
 @import url(./blocks/popup/__button/_add_card/popup__button_add_card.css);
 @import url(./blocks/popup/__button/_confirm/popup__button_confirm.css);
@@ -79,3 +84,10 @@
 
 @import url(./blocks/error/error.css);
 @import url(./blocks/error/_visible/error_visible.css);
+
+@import url(./blocks/login/login.css);
+@import url(./blocks/login/__container/login__container.css);
+@import url(./blocks/login/__title/login__title.css);
+@import url(./blocks/login/__field/login__field.css);
+@import url(./blocks/login/__button/login__button.css);
+@import url(./blocks/login/__link/login__link.css);
