@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/api';
+import { auth } from '../utils/auth';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -33,6 +34,10 @@ function App () {
   const [cards, setCards] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [userEmail, setUserEmail] = useState('');
+
+  const history = useHistory();
 
   useEffect(() => {
     api
@@ -86,6 +91,40 @@ function App () {
       })
       .catch((err) => console.log(err))
       .finally(() => setIsRenderLoading(false));
+  };
+
+  function handleRegisterUser (email, password) {
+    auth
+      .registerNewUser (email, password)
+      .then ((newUser) => {
+        if (newUser) {
+          setIsInfoTooltipPopupOpen(true);
+          setIsLoginSuccess(true);
+          history.push('/sign-in');
+        }
+      })
+      .catch((err) => {
+        setIsInfoTooltipPopupOpen(true);
+        setIsLoginSuccess(false);
+        console.log(err)
+      })
+  };
+
+  function handleLoginUser (email, password) {
+    auth
+      .loginUser (email, password)
+      .then ((user) => {
+        if (user.token) {
+          setLoggedIn (true);
+          setUserEmail (email);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        setIsInfoTooltipPopupOpen(true);
+        setIsLoginSuccess(false);
+        console.log(err)
+      })
   };
  
   function handleEditProfileClick() {
@@ -167,13 +206,13 @@ function App () {
             <Route 
               path='/sign-up'
             >
-              <Register />
+              <Register onRegister={handleRegisterUser} />
             </Route>
 
             <Route 
               path='/sign-in'
             >
-              <Login />
+              <Login onLogin={handleLoginUser} />
             </Route>
 
             <Route>
