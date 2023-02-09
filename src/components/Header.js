@@ -1,25 +1,23 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import headerLogo from '../images/logo.svg';
 
-function Header ({loggedIn}) {
+function Header ({login, link, onClick, loggedIn, headerText}) {
     return (
         <header className='header section'>
-            <img className='header__logo' src={headerLogo} alt='Лого'/>
-            <Route path='/sign-in'>
-                <Link 
-                    className={`${loggedIn ? 'header__login' : 'header__login header__login_in'}`} 
-                    to='sign-up'>
-                        Регистрация
-                </Link>
-            </Route>
-            <Route path='/sign-up'>
-                <Link 
-                    className={`${loggedIn ? 'header__login' : 'header__login header__login_in'}`} 
-                    to='sign-up'>
-                        Войти
-                </Link>
-            </Route>
+            <div className='header__container'>
+                <img className='header__logo' src={headerLogo} alt='Лого'/>
+                <div className='header__container'>
+                    <p className='header__login'>{login}</p>
+                    <Link 
+                        to={link}
+                        className={`${loggedIn && 'header__logout'} header__link`}
+                        onClick={onClick}
+                    >
+                        {headerText}
+                    </Link>
+                </div>
+            </div>
         </header>
     )
 };

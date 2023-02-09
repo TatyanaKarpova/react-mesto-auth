@@ -5,7 +5,7 @@ function ConfirmDeleteCardPopup ({isOpen, card, onClose, onDeleteCard, isRenderL
     function handleSubmit(evt) {
         evt.preventDefault();
         onDeleteCard(card);
-    }
+    };
 
     return (
         <PopupWithForm

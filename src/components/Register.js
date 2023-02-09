@@ -1,57 +1,57 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 
 function Register ({onRegister}) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    function handleEmailChange (evt) {
-        setEmail(evt.targrt.value);
-    }
-    
-    function handlePasswordChange (evt) {
-        setPassword(evt.target.value);
-    }
+    const [registrationData, setRegistrationData] = useState({email: '', password: ''});
 
     function handleSubmit (evt) {
         evt.preventDefault();
-        onRegister(email, password);
-    }
+        onRegister(registrationData);
+    };
+
+    function handleRegistrationDataChange (evt) {
+        const {name, value} = evt.target;
+        setRegistrationData({...registrationData, [name]: value})
+    };
 
     return (
-        <div className='login'>
-            <h2 className='login__title'>Регистрация</h2>
-            <form 
-                className='login__container'
-                onSubmit={handleSubmit}
-            >
-                <input 
-                    className='login__field'
-                    name='email'
-                    type='email'
-                    placeholder='Email'
-                    value={email}
-                    onChange={handleEmailChange}
-                    required
-                />
-                <input 
-                    className='login__field'
-                    name='password'
-                    type='password'
-                    placeholder='Пароль'
-                    value={password}
-                    onChange={handlePasswordChange}
-                    required
-                />
-                <button 
-                    className='login__button'
-                    type='submit'
+        <>
+            <Header link='/sign-in' headerText='Войти' />
+            <div className='login'>
+                <form 
+                    className='login__container'
+                    onSubmit={handleSubmit}
                 >
-                    Войти
-                </button>
-                <Link className='login__link' to='/sign-in'>Уже зарегистрированы? Войти</Link>
-            </form>
-        </div>
+                    <h2 className='login__title'>Регистрация</h2>
+                    <input 
+                        className='login__field'
+                        name='email'
+                        type='email'
+                        placeholder='Email'
+                        value={registrationData.email}
+                        onChange={handleRegistrationDataChange}
+                        required
+                    />
+                    <input 
+                        className='login__field'
+                        name='password'
+                        type='password'
+                        placeholder='Пароль'
+                        value={registrationData.password}
+                        onChange={handleRegistrationDataChange}
+                        required
+                    />
+                    <button 
+                        className='login__button'
+                        type='submit'
+                    >
+                        Зарегистрироваться
+                    </button>
+                    <Link className='login__link' to='/sign-in'>Уже зарегистрированы? Войти</Link>
+                </form>
+            </div>
+        </>
     )
 }
 

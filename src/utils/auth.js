@@ -5,7 +5,7 @@ class Auth {
 
     _checkResponse(response) {
         if (response.ok) {
-            return res.json();
+            return response.json();
         }
         return Promise.reject(`Ошибка: ${response.status}`);
     }
@@ -39,7 +39,7 @@ class Auth {
     }
 
     checkToken (token) {
-        this._token = fetch(`${this._url}users/me`, {
+        this._token = fetch(`${this._url}/users/me`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

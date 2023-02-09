@@ -1,24 +1,29 @@
 import React from 'react';
+import registrationSuccess from '../images/reg-success.svg';
+import registrationFailure from '../images/reg-fail.svg';
 
-function InfoTooltip ({onClose, regStatus}) {
+function InfoTooltip ({isOpen, onClose, isRegistrationSuccess, regSuccessful, regFailed}) {
     return (
         <div className={`popup ${isOpen && 'popup_opened'}`}>
-            <div className='popup__container'>
+            <div className='popup__container popup__registration'>
                 <button 
                         type='button' 
                         className='popup__close-icon' 
                         aria-label='Закрыть попап' 
                         onClick={onClose}>
                 </button>
-                <div 
-                    className={`popup__registration ${regStatus ? 'popup__registration_success' : 'popup__registration_fail'}`}>
-                </div>
-                <h2 className='popup__heading popup__heading_reg'>
-                    {regStatus ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте еще раз.'}
-                </h2>
+                <img 
+                    className='popup__registration-image'
+                    src={`${isRegistrationSuccess ? registrationSuccess : registrationFailure}`}
+                    alt='Изображение статуса регистрации'                    
+                >
+                </img>
+                <h3 className='popup__heading popup__registration-heading'>
+                    {`${isRegistrationSuccess ? regSuccessful : regFailed}`}
+                </h3>
             </div>
         </div>
     )
-}
+};
 
 export default InfoTooltip;
