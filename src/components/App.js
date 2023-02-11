@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
@@ -38,7 +37,7 @@ function App () {
   const [userLoginData, setUserLoginData] = useState('');
 
   const navigate = useNavigate();
-/*
+
   useEffect(() => {
     api
       .getUserProfileInfo()
@@ -52,29 +51,11 @@ function App () {
         setCards(res);
       })
       .catch((err) => console.log(err));
-  }, []); */
+  }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
-    if (!token) {
-      return;
-    }
-    api
-      .setToken(token);
-    api
-      .getInitialCards()
-      .then(([user, cards]) => {
-        setCards(cards.cards.reverse());
-        setCurrentUser(user);
-      })
-      .catch((err) => console.log(err));
-  }, [loggedIn]);
-
-
-  useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
       auth.checkToken(jwt)
         .then(user => {
           if (user) {
@@ -87,14 +68,7 @@ function App () {
           setIsInfoTooltipPopupOpen(true);
         })
     }
-  }, [navigate, loggedIn, setIsInfoTooltipPopupOpen]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate.push('/');
-    }
-  }, [navigate, loggedIn]);
-
+  }, [navigate]);
 
   function handleUpdateUser (newProfileInfo) {
     setIsRenderLoading(true);
@@ -138,31 +112,30 @@ function App () {
   function handleRegisterUser (email, password) {
     auth
       .registerNewUser (email, password)
-      .then ((newUser) => {
-        if (newUser) {
-          setIsInfoTooltipPopupOpen(true);
+      .then ((userData) => {
+        if (userData) {
           setIsLoginSuccess(true);
-          navigate.push('/sign-in');
+          navigate('/sign-in');
         }
       })
       .catch((err) => {
-        setIsInfoTooltipPopupOpen(true);
         setIsLoginSuccess(false);
         console.log(err);
-        navigate.push('/sign-up');
+      })
+      .finally(() => {
+        setIsInfoTooltipPopupOpen(true);
       })
   };
 
   function handleLoginUser (email, password) {
-    setUserLoginData(email);
     auth
       .loginUser (email, password)
-      .then ((user) => {
-        if (user.token) {
-          setLoggedIn (true);
-          setIsLoginSuccess(true);
-          localStorage.setItem ('jwt', user.token);
-          navigate.push('/');
+      .then ((userData) => {
+        if (userData.token) {
+          setUserLoginData(email)
+          setLoggedIn(true);
+          localStorage.setItem ('jwt', userData.token);
+          navigate('/');
         }
       })
       .catch((err) => {
@@ -176,7 +149,7 @@ function App () {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     setIsLoginSuccess(false);
-    navigate.push('/sign-in');
+    navigate('/sign-in');
   };
  
   function handleEditProfileClick() {
@@ -209,7 +182,6 @@ function App () {
     setIsConfirmDeleteCardPopup(false);
     setIsRenderLoading(false);
     setIsInfoTooltipPopupOpen(false);
-    setSelectedCard(null);
   };
 
   function handleCardLike (card) {
@@ -242,10 +214,10 @@ function App () {
         <div className='page__container'>
           <Routes>
             <Route path='/' element={
-              <ProtectedRoute
-                loggedIn={loggedIn}
-                element={
-                  <Main
+              <>
+                <ProtectedRoute
+                  loggedIn={loggedIn}
+                  component={Main}
                   onEditProfile={handleEditProfileClick}
                   onAddPlace={handleAddPlaceClick} 
                   onEditAvatar={handleEditAvatarClick}
@@ -255,9 +227,9 @@ function App () {
                   onCardDelete={handleDeleteCardClick}
                   loggedOut={handleLogoutUser}
                   userLoginData={userLoginData}
-                  />
-                }
-              />
+                />
+                <Footer/>
+              </>
             }>
             </Route>
             <Route 
@@ -278,8 +250,6 @@ function App () {
               }>
             </Route>
           </Routes>
-
-          <Footer/>
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -320,7 +290,7 @@ function App () {
             isOpen={isInfoTooltipPopupOpen}
             onClose={closeAllPopups}
             isRegistrationSuccess={isLoginSuccess}
-            regSuccessful='Вы успешно зарегестрировались!'
+            regSuccessful='Вы успешно зарегистрировались!'
             regFailed='Что-то пошло не так! Попробуйте еще раз.'
           />
 

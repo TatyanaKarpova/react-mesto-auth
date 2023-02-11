@@ -4,21 +4,25 @@ import Header from './Header';
 
 function Login ({onLogin}) {
 
-    const [authenticationData, setAuthenticationData] = useState({email: '', password: ''});
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    function handleAuthenticationDataChange (evt) {
-        const {name, value} = evt.target;
-        setAuthenticationData({...authenticationData, [name]: value});
-    };
+    function handleEmailChange (evt) {
+        setEmail(evt.target.value);
+    }
 
-    function handleSubmit (evt) {
+    function handlePasswordChange (evt) {
+        setPassword(evt.target.value);
+    }
+
+    function handleSubmit(evt) {
         evt.preventDefault();
-        onLogin(authenticationData);
-    };
+        onLogin(email, password);
+    }
 
     return (
         <>
-            <Header link='/sign-up' headerText='Регистрация'></Header>
+            <Header link='/sign-up' headerText='Регистрация' />
             <div className='login'>
                 <form 
                     className='login__container'
@@ -30,8 +34,8 @@ function Login ({onLogin}) {
                         name='email'
                         type='email'
                         placeholder='Email'
-                        value={authenticationData.email}
-                        onChange={handleAuthenticationDataChange}
+                        value={email}
+                        onChange={handleEmailChange}
                         required
                     />
                     <input 
@@ -39,8 +43,8 @@ function Login ({onLogin}) {
                         name='password'
                         type='password'
                         placeholder='Пароль'
-                        value={authenticationData.password}
-                        onChange={handleAuthenticationDataChange}
+                        value={password}
+                        onChange={handlePasswordChange}
                         required
                     />
                     <button 

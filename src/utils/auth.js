@@ -11,31 +11,23 @@ class Auth {
     }
 
     registerNewUser (email, password) {
-        this._newUser = fetch(`${this._url}/signup`, {
+        return fetch (`${this._url}/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              email : email,
-              password: password,
-            }),
-          }).then(this._checkResponse);
-          return this._newUser;
+            body: JSON.stringify({ email, password }),
+        }).then(this._checkResponse);
     }
-
+    
     loginUser (email, password) {
-        this._user = fetch(`${this._url}/signin`, {
+        return fetch(`${this._url}/signin`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              email : email,
-              password: password,
-            }),
+            body: JSON.stringify({ email, password }),
           }).then(this._checkResponse);
-          return this._user;
     }
 
     checkToken (token) {

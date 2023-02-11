@@ -5,15 +5,24 @@
     line-height: 17px;
     width: 358px;
     padding: 0 0 13px;
-    margin: 30px 0 0;
+    margin: 0;
     border: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #CCCCCC;
     box-sizing: border-box;
     background-color: transparent;
-    outline: none;
-    box-shadow: none;
+    color: #CCCCCC;
 }
 
 .login__field::placeholder {
     color: #CCCCCC;
+}
+
+.login__field:first-of-type {
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .login__field {
+        width: 260px;
+    }
 }

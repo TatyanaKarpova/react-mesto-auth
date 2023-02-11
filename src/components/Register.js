@@ -3,17 +3,22 @@ import { Link } from 'react-router-dom';
 import Header from './Header';
 
 function Register ({onRegister}) {
-    const [registrationData, setRegistrationData] = useState({email: '', password: ''});
 
-    function handleSubmit (evt) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleEmailChange (evt) {
+        setEmail(evt.target.value);
+    }
+
+    function handlePasswordChange (evt) {
+        setPassword(evt.target.value);
+    }
+
+    function handleSubmit(evt) {
         evt.preventDefault();
-        onRegister(registrationData);
-    };
-
-    function handleRegistrationDataChange (evt) {
-        const {name, value} = evt.target;
-        setRegistrationData({...registrationData, [name]: value})
-    };
+        onRegister(email, password);
+    }
 
     return (
         <>
@@ -29,8 +34,8 @@ function Register ({onRegister}) {
                         name='email'
                         type='email'
                         placeholder='Email'
-                        value={registrationData.email}
-                        onChange={handleRegistrationDataChange}
+                        value={email}
+                        onChange={handleEmailChange}
                         required
                     />
                     <input 
@@ -38,8 +43,8 @@ function Register ({onRegister}) {
                         name='password'
                         type='password'
                         placeholder='Пароль'
-                        value={registrationData.password}
-                        onChange={handleRegistrationDataChange}
+                        value={password}
+                        onChange={handlePasswordChange}
                         required
                     />
                     <button 

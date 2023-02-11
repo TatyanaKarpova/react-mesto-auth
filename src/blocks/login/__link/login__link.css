@@ -12,3 +12,9 @@
 .login__link:hover {
     opacity: 0.8;
 }
+
+@media screen and (max-width: 768px) {
+    .login__link {
+        margin: 20px 0 0;
+    }
+}

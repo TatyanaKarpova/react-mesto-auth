@@ -13,8 +13,8 @@ function ImagePopup ({isOpen, card, onClose}) {
                     type='button' 
                     className='popup__close-icon' 
                     aria-label='Закрыть попап' 
-                    onClick={onClose}
-                ></button>
+                    onClick={onClose}>
+                </button>
                 <figcaption className='popup__figcaption'>{card.name}</figcaption>
             </figure>
         </div>

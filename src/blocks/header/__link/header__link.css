@@ -2,14 +2,27 @@
     cursor: pointer;
     margin: 0;
     align-self: flex-end;
-    padding: 0 0 0 24px;
     color: #FFFFFF;
     text-decoration: none;
-    line-height: 1.2;
+    line-height: 22px;
     font-size: 18px;
     font-weight: 400;
 }
 
 .header__link:hover {
     opacity: 0.8;
-  }
+}
+
+@media screen and (max-width: 1024px) {
+    .header__link {
+        margin-right: 90px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header__link {
+        margin-right: 30px;
+        line-height: 17px;
+        font-size: 14px;
+    }
+}

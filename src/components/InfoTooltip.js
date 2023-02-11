@@ -4,8 +4,8 @@ import registrationFailure from '../images/reg-fail.svg';
 
 function InfoTooltip ({isOpen, onClose, isRegistrationSuccess, regSuccessful, regFailed}) {
     return (
-        <div className={`popup ${isOpen && 'popup_opened'}`}>
-            <div className='popup__container popup__registration'>
+        <div className={`popup popup__registration ${isOpen && 'popup_opened'}`}>
+            <div className='popup__container'>
                 <button 
                         type='button' 
                         className='popup__close-icon' 
