@@ -14,6 +14,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import Header from './Header';
 
 function App () {
 
@@ -57,10 +58,10 @@ function App () {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth.checkToken(jwt)
-        .then(user => {
-          if (user) {
+        .then(userData => {
+          if (userData) {
             setLoggedIn(true);
-            setUserLoginData(user.email);
+            setUserLoginData(userData.data.email);
           }
         })
         .catch((err) => {
@@ -151,38 +152,6 @@ function App () {
     setIsLoginSuccess(false);
     navigate('/sign-in');
   };
- 
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  };
-
-  function handleAddPlaceClick () {
-    setIsAddPlacePopupOpen(true);
-  };
-
-  function handleEditAvatarClick () {
-    setIsEditAvatarPopupOpen(true);
-  };
-
-  function handleCardClick (card) {
-    setIsShowFullImagePopupOpen(true);
-    setSelectedCard(card);
-  };
-
-  function handleDeleteCardClick (card) {
-    setIsConfirmDeleteCardPopup(true);
-    setSelectedCard(card);
-  };
-
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setIsShowFullImagePopupOpen(false);
-    setIsConfirmDeleteCardPopup(false);
-    setIsRenderLoading(false);
-    setIsInfoTooltipPopupOpen(false);
-  };
 
   function handleCardLike (card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -207,14 +176,71 @@ function App () {
       .catch((err) => console.log(err))
       .finally(() => setIsRenderLoading(false));
   };
+ 
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+    window.addEventListener('click', handleClosePopupOverlayClick);
+    window.addEventListener('keydown', handleClosePopupKeydownEsc);
+  };
+
+  function handleAddPlaceClick () {
+    setIsAddPlacePopupOpen(true);
+    window.addEventListener('click', handleClosePopupOverlayClick);
+    window.addEventListener('keydown', handleClosePopupKeydownEsc);
+  };
+
+  function handleEditAvatarClick () {
+    setIsEditAvatarPopupOpen(true);
+    window.addEventListener('click', handleClosePopupOverlayClick);
+    window.addEventListener('keydown', handleClosePopupKeydownEsc);
+  };
+
+  function handleCardClick (card) {
+    setIsShowFullImagePopupOpen(true);
+    setSelectedCard(card);
+    window.addEventListener('click', handleClosePopupOverlayClick);
+    window.addEventListener('keydown', handleClosePopupKeydownEsc);
+  };
+
+  function handleDeleteCardClick (card) {
+    setIsConfirmDeleteCardPopup(true);
+    setSelectedCard(card);
+    window.addEventListener('click', handleClosePopupOverlayClick);
+    window.addEventListener('keydown', handleClosePopupKeydownEsc);
+
+  };
+
+  function handleClosePopupOverlayClick (evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closeAllPopups();
+    }
+  };
+
+  function handleClosePopupKeydownEsc (evt) {
+    if (evt.keyCode === 27) {
+      closeAllPopups();
+    }
+  };
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsShowFullImagePopupOpen(false);
+    setIsConfirmDeleteCardPopup(false);
+    setIsRenderLoading(false);
+    setIsInfoTooltipPopupOpen(false);
+    window.removeEventListener('click', handleClosePopupOverlayClick);
+    window.removeEventListener('keydown', handleClosePopupKeydownEsc);
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='page__container'>
+          
           <Routes>
             <Route path='/' element={
-              <>
                 <ProtectedRoute
                   loggedIn={loggedIn}
                   component={Main}
@@ -228,8 +254,6 @@ function App () {
                   loggedOut={handleLogoutUser}
                   userLoginData={userLoginData}
                 />
-                <Footer/>
-              </>
             }>
             </Route>
             <Route 
@@ -250,6 +274,8 @@ function App () {
               }>
             </Route>
           </Routes>
+
+          <Footer/>
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
