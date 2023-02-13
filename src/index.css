@@ -21,10 +21,12 @@
 @import url(./blocks/header/__link/_invisable/header__link_invisable.css);
 @import url(./blocks/header/__wrapper/header__wrapper.css);
 @import url(./blocks/header/__wrapper/_invisable/header__wrapper_invisable.css);
+@import url(./blocks/header/__wrapper/_mobile/header__wrapper_mobile.css);
 @import url(./blocks/header/__close-button/header__close-button.css);
 @import url(./blocks/header/__close-button/_invisible/header__close-button_invisible.css);
 @import url(./blocks/header/__menu-button/header__menu-button.css);
 @import url(./blocks/header/__menu-button/_invisible/header__menu-button_invisible.css);
+@import url(./blocks/header/__menu-button/_desktop/header__menu-button_desktop.css);
 
 @import url(./blocks/logo-container/logo-container.css);
 
