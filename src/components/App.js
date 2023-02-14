@@ -14,7 +14,6 @@ import ProtectedRoute from './ProtectedRoute';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
-import Header from './Header';
 
 function App () {
 
@@ -57,7 +56,8 @@ function App () {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      auth.checkToken(jwt)
+      auth
+        .checkToken(jwt)
         .then(userData => {
           if (userData) {
             setLoggedIn(true);
@@ -135,7 +135,7 @@ function App () {
         if (userData.token) {
           setUserLoginData(email)
           setLoggedIn(true);
-          localStorage.setItem ('jwt', userData.token);
+          localStorage.setItem('jwt', userData.token);
           navigate('/');
         }
       })
@@ -236,7 +236,9 @@ function App () {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+
       <div className='page'>
+
         <div className='page__container'>
           
           <Routes>
@@ -256,11 +258,13 @@ function App () {
                 />
             }>
             </Route>
+
             <Route 
               path='/sign-up' element={
                 <Register onRegister={handleRegisterUser} />
               }>
             </Route>
+
             <Route 
               path='/sign-in' element={
                 <Login onLogin={handleLoginUser} />
@@ -273,6 +277,7 @@ function App () {
                 <Navigate to='/sign-in' />
               }>
             </Route>
+
           </Routes>
 
           <Footer/>
@@ -321,8 +326,11 @@ function App () {
           />
 
         </div>
+
       </div>
+
     </CurrentUserContext.Provider>
+    
   );
 };
 

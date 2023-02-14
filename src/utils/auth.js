@@ -31,14 +31,13 @@ class Auth {
     }
 
     checkToken (token) {
-        this._token = fetch(`${this._url}/users/me`, {
+        return fetch(`${this._url}/users/me`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
           }).then(this._checkResponse);
-          return this._token;
     }
 }
 

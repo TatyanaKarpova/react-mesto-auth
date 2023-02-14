@@ -16,8 +16,16 @@ function Header ({login, link, onClick, loggedIn, headerText}) {
                 <div className='header__container header__container_mobile'>
                 <div className='logo-container'>
                     <img className='header__logo' src={headerLogo} alt='Лого'/>
-                    <button type='button' className={`header__menu-button_desktop ${isMenuClicked ? 'header__menu-button_invisible' : 'header__menu-button'}`} onClick={handleMenuClick}></button>
-                    <button type='button' className={`${isMenuClicked ? 'header__close-button' : 'header__close-button_invisible'}`} onClick={handleMenuClick}></button>
+                    <button 
+                        type='button' 
+                        className={`header__menu-button_desktop ${isMenuClicked ? 'header__menu-button_invisible' : 'header__menu-button'}`} 
+                        onClick={handleMenuClick}>
+                    </button>
+                    <button 
+                        type='button' 
+                        className={`${isMenuClicked ? 'header__close-button' : 'header__close-button_invisible'}`} 
+                        onClick={handleMenuClick}>                        
+                    </button>
                 </div>
                 <div className={`header__wrapper ${isMenuClicked ? 'header__wrapper_mobile' : ''}`}>
                     <p className='header__login'>{login}</p>
@@ -29,13 +37,21 @@ function Header ({login, link, onClick, loggedIn, headerText}) {
                     {headerText}
                     </Link>
                 </div>
-            </div>
+                </div>
             ) : (
                 <div className='header__container'>
                 <div className=''>
                     <img className='header__logo' src={headerLogo} alt='Лого'/>
-                    <button type='button' className='header__menu-button_invisible' onClick={handleMenuClick}></button>
-                    <button type='button' className='header__close-button_invisible' onClick={handleMenuClick}></button>
+                    <button 
+                        type='button' 
+                        className='header__menu-button_invisible' 
+                        onClick={handleMenuClick}>                        
+                    </button>
+                    <button 
+                        type='button' 
+                        className='header__close-button_invisible' 
+                        onClick={handleMenuClick}>                        
+                    </button>
                 </div>
                 <div className='header__container'>
                     <p className='header__login'>{login}</p>
@@ -47,7 +63,7 @@ function Header ({login, link, onClick, loggedIn, headerText}) {
                     {headerText}
                     </Link>
                 </div>
-            </div>
+                </div>
             )}            
         </header>
     )

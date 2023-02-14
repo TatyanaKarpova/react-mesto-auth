@@ -22,9 +22,9 @@
 
 @media screen and (max-width: 768px) {
     .header__link {
-        line-height: 22px;
-        font-size: 18px;
+        line-height: 17px;
+        font-size: 14px;
         align-self: center;
-        margin: 18px 30px 0 0;
+        margin-right: 30px;
     }
 }

@@ -9,16 +9,16 @@ function Login ({onLogin}) {
 
     function handleEmailChange (evt) {
         setEmail(evt.target.value);
-    }
+    };
 
     function handlePasswordChange (evt) {
         setPassword(evt.target.value);
-    }
+    };
 
     function handleSubmit(evt) {
         evt.preventDefault();
         onLogin(email, password);
-    }
+    };
 
     return (
         <>
